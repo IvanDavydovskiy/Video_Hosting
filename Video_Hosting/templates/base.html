@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<nav class="topnav">
+      <a href="{{ url_for('home') }}">home</a>
+      <a href="{{ url_for('main') }}">main</a>
+      {% if current_user.is_confirmed %}
+        <a href="{{ url_for('logout' )}}">logout</a>
+        <a href="{{ url_for('upload') }}">upload</a>
+        <a href="{{ url_for('subscriptions' )}}">subscriptions</a>
+      {% else %}
+        <a href="{{ url_for('sign-up') }}">sign-up</a>
+        <a href="{{ url_for('sign-in') }}">sign-in</a>
+      {% endif %}
+</nav>
+{% block content %}
+{% endblock content%}
+</body>
+</html>

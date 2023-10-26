@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{comment.author_name}}
+<pre>   {{comment.comment}}</pre>>
+<h4>Your response</h4>
+<form method="post">
+    {{form.csrf_token}}}
+    {{form.response_text}}
+    {{form.submit}}
+</form>
+{% endblock content%}

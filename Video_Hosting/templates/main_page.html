@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div align="center">
+    <form method="post">
+        {{ form.csrf_token }}
+        {{form.title}}
+        {{form.search_bar}}
+        {{form.submit}}
+    </form>
+</div>
+<br>
+{% if searched_videos %}
+    {% for video in searched_videos %}
+    <div class="videos">
+        <section class="video-section">
+            <article class="video-container">
+                <a href="#" class="thumbnail">
+                    <img class="thumbnail-image" src="../static/previews/{{video.id|string}}.png" height="150" width="250"/>
+                </a>
+                <div class="video-bottom-section">
+                    <a href="#">
+                        <img  class="channel-icon" src="../static/previews/{{video.id|string}}.png" height="36" width="36">
+                    </a>
+                    <div class="video-details">
+                        <a class="video-title" href="{{ url_for('video', video_id=video.id)}}"> {{video.title}}</a>
+                        <a class="video-channel-name" href="{{ url_for('profile', user_id=video.author_id )}}">{{video.author_id}}</a>
+                    </div>
+                </div>
+                <div class="video-metadata">
+                    <span>12K views</span>
+                    •
+                    <span>{{video.created_on.strftime('%Y-%m-%d')}}</span>
+                </div>
+            </article>
+        </section>
+    </div>
+    {% endfor %}
+{% else %}
+    {% if videos %}
+        {% for video in videos %}
+            <div class="videos">
+                <section class="video-section">
+                    <article class="video-container">
+                        <a href="#" class="thumbnail">
+                            <img class="thumbnail-image" src="../static/previews/{{video.id|string}}.png" height="150" width="250"/>
+                        </a>
+                        <div class="video-bottom-section">
+                        <a href="#">
+                            <img  class="channel-icon" src="../static/previews/{{video.id|string}}.png" height="36" width="36">
+                        </a>
+                            <div class="video-details">
+                                <a class="video-title" href="{{ url_for('video', video_id=video.id)}}"> {{video.title}}</a>
+                                <a class="video-channel-name" href="{{ url_for('profile', user_id=video.author_id )}}">{{video.author_id}}</a>
+                            </div>
+                        </div>
+                        <div class="video-metadata">
+                            <span>12K views</span>
+                            •
+                            <span>{{video.created_on.strftime('%Y-%m-%d')}}</span>
+                        </div>
+                    </article>
+                </section>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endif %}
+{% endblock content%}

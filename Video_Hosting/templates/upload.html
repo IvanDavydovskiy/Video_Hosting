@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" enctype='multipart/form-data'>
+    {{form.csrf_token}}}
+    <div align="center">
+        <fieldset>
+            {{form.title.label}}<br>
+            {{form.title}}<br>
+            {{form.description.label}}<br>
+            {{form.description}}<br>
+            {{form.preview.label}}<br>
+            {{form.preview}}<br>
+            {{form.video.label}}<br>
+            {{form.video}}<br>
+        </fieldset>
+        <p>{{form.submit|safe}}</p>
+    </div>
+</form>
+
+{% endblock content%}
