@@ -1,4 +1,5 @@
 import os
+import asyncio
 
 
 from flask import render_template, request, redirect, flash, url_for, current_app
@@ -14,7 +15,7 @@ from app import db, bcrypt, preview_uploads_dir, video_uploads_dir, cache, email
 from models import Video, Comment, CommentResponse, Like, Watch, Subscription
 
 
-def send_email(subject, recipients, html):
+async def send_email(subject, recipients, html):
     msg = Message(
         subject=subject,
         recipients=recipients,
@@ -53,11 +54,11 @@ class SingUp(MethodView):
                 token = serializer.dumps(form.email.data, salt=current_app.config["SECRET_KEY"])
                 confirm_url = url_for('email_verify', token=token, _external=True)
                 html = render_template('email_verify.html', confirm_url=confirm_url)
-                send_email(
+                asyncio.run(send_email(
                       subject='Email confirmation',
                       recipients=[form.email.data],
                       html=html
-                )
+                ))
                 return redirect(url_for('home'))
             return render_template(self.template, form=form)
         except IntegrityError:

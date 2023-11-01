@@ -2,33 +2,41 @@
 
 {% block content %}
 {% if user.is_authenticated and user.is_confirmed %}
+<h2>Your channel <a href="{{url_for('profile', user_id=user.id)}}">{{user.username}}</a></h2>
         {% if not videos %}
             <h2>There are no videos yet</h2>
         {% else %}
+            <h2>Your videos</h2>
+            <div class="videos">
             {% for video in videos %}
-                <div class="videos">
-                    <section class="video-section">
-                        <article class="video-container">
-                            <a href="#" class="thumbnail">
-                                <img class="thumbnail-image" src="../static/previews/{{video.id|string}}.png" height="150" width="250"/>
+                <section class="video-section">
+                    <article class="video-container">
+                        <a href="{{ url_for('video', video_id=video.id)}}" class="thumbnail">
+                        <img class="thumbnail-image" src="../static/previews/{{video.id|string}}.png" height="150" width="250"/>
+                    </a>
+                    <div class="video-bottom-section">
+                        <a href="#">
+                        <img class="channel-icon" src="../static/previews/{{video.id|string}}.png" height="36" width="36">
+                        </a>
+                    <div class="video-details">
+                        <a class="video-title" href="{{ url_for('video', video_id=video.id)}}"> {{video.title}}</a>
+                        <a class="video-channel-name" href="{{ url_for('profile', user_id=video.author_id )}}">{{get_username(video_obj=video)}}</a>
+                    </div>
+                    </div>
+                        <div class="video-metadata">
+                            <span>{{ view_amount(video_id=video.id)}} views</span>
+                            •
+                            <span>{{video.created_on.strftime('%Y-%m-%d')}}</span>
+                    </div>
+                        <div class="delete-btn">
+                            <a href="{{ url_for('delete_video', video_id=video.id) }}">
+                                <img src="/static/icons/trash-can.png">
                             </a>
-                            <div class="video-bottom-section">
-                                <a href="#">
-                                    <img  class="channel-icon" src="../static/previews/{{video.id|string}}.png" height="36" width="36">
-                                </a>
-                                <div class="video-details">
-                                    <a class="video-title" href="{{ url_for('video', video_id=video.id)}}"> {{video.title}}</a>
-                                    <a class="video-channel-name" href="{{ url_for('profile', user_id=video.author_id )}}">{{video.author_id}}</a>
-                                </div>
-                            </div>
-                            <div class="video-metadata">
-                                <span>12K views</span>
-                                <span>{{video.created_on.strftime('%Y-%m-%d')}}</span>
-                            </div>
-                        </article>
-                    </section>
-                </div>
+                        </div>
+                    </article>
+                </section>
             {% endfor %}
+            </div>
         {% endif %}
 {%endif%}
 {% endblock content%}

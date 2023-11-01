@@ -10,8 +10,8 @@
       <a href="{{ url_for('home') }}">home</a>
       <a href="{{ url_for('main') }}">main</a>
       {% if current_user.is_confirmed %}
-        <a href="{{ url_for('logout' )}}">logout</a>
-        <a href="{{ url_for('upload') }}">upload</a>
+        <a href="{{ url_for('logout' )}}"><img alt="logout" src="/static/icons/logout.png"></a>
+        <a href="{{ url_for('upload') }}"><img alt="logout" src="/static/icons/upload.png"></a>
         <a href="{{ url_for('subscriptions' )}}">subscriptions</a>
       {% else %}
         <a href="{{ url_for('sign-up') }}">sign-up</a>

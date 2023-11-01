@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="video-metadata">
-                    <span>12K views</span>
+                    <span>{{ view_amount(video_id=video.id) }} views</span>
                     <span>{{video.created_on.strftime('%Y-%m-%d')}}</span>
                 </div>
             </article>
